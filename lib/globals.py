@@ -1,0 +1,2 @@
+VERSION = '0.2.3'
+PMAYA_CONFIG_FILENAME = '.pmaya_cfg'
