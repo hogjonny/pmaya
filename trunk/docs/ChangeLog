@@ -1,0 +1,17 @@
+Version 0.2:
+    * Added support for mel and tcsh startup scripts when opening maya
+    * Added support for project-specific configuration settings
+    * Added support for reading information from the workspace.mel file
+    * Added a menu bar
+    * Added prompts for creating a new asset
+    * Split project into multiple files
+    * Moved project to subversion
+    * Abstracted all Qt calls from the controller
+    * Misc. bug fixes
+
+Version 0.1.1:
+    * Fixed bug that would cause Pmaya to crash if no projects were saved in the profile
+
+Version 0.1:
+    * Started Project
+    * Sets project, checks files in and out, and opens maya
