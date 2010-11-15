@@ -147,7 +147,7 @@ class Controller:
 
         print 'Checking in file: %s' % src_file
 
-        #open a file dialog
+        #get the destination location
         start_dir = self.model.project.getScenesDir()
         filters = self.model.project.getDialogFilters()
 
@@ -155,6 +155,13 @@ class Controller:
             doSaveButton=True)
 
         print 'DEST IS:', dest_file
+
+        #confirm if it does not yet exist
+        if not os.path.exists(dest_file):
+            msg = 'The file "%s" does not yet exist.' % dest_file
+            msg += '\n\nAre you sure you want to check in to a new location?'
+
+            dialogs.confirmPrompt(msg)
 
         #prompt for a log message
         log_msg = dialogs.textPrompt('Enter a log message:')
