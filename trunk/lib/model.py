@@ -80,9 +80,11 @@ class Model:
 
         cmd = 'maya -batch -command \'file -rename "%s"; file -f -save\'' % path
         print 'CMD:', cmd
-        subprocess.Popen(cmd, shell=True)
+        subprocess.call(cmd, shell=True)
 
         #TODO raise exception if not created
+
+        self.refreshFileList()
 
 
     def copyFile(self, src, dest):

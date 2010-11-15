@@ -115,6 +115,10 @@ class SideButtons:
         bottombuttons_layout = QtGui.QVBoxLayout()
         self.layout.addLayout(bottombuttons_layout, QtCore.Qt.AlignBottom)
 
+        #new button
+        self.new_button = QtGui.QPushButton('New...')
+        topbuttons_layout.addWidget(self.new_button)
+
         #open button
         self.open_button = QtGui.QPushButton('Open...')
         topbuttons_layout.addWidget(self.open_button)
@@ -338,6 +342,10 @@ class Viewer(QtGui.QWidget):
         #side buttons
         side_buttons = SideButtons()
         bottom_layout.addLayout(side_buttons.layout)
+
+        self.connect(side_buttons.new_button,
+            QtCore.SIGNAL('clicked()'),
+            lambda: controller.event('NEW_BUTTON'))
 
         self.connect(side_buttons.open_button, 
             QtCore.SIGNAL('clicked()'), 

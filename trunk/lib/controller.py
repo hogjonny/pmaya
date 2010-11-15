@@ -32,7 +32,9 @@ class Controller:
                 if not self.model.project:
                     return
 
-                if event == 'OPEN_BUTTON':
+                if event == 'NEW_BUTTON':
+                    self._newButton()
+                elif event == 'OPEN_BUTTON':
                     self._openButton()
                 elif event == 'CHECKIN_BUTTON':
                     self._checkinButton()
@@ -64,6 +66,31 @@ class Controller:
             return
 
         self.model.selectProject(selected)
+
+    
+    def _newButton(self):
+        dialogs = Dialogs(self.view)
+
+        #prompt for a file name
+        filename = dialogs.fileTextPrompt('Enter name of the new maya file:')
+        print 'Chosen name:', filename
+
+        if not filename.endswith('.mb'):
+            filename += '.mb'
+
+        full_path = os.path.join(self.model.project.getCheckoutDir(), filename)
+        print 'Full path:', full_path
+
+        self.model.createFile(full_path)
+        print os.path.exists(full_path)
+        self.refreshGui()
+
+        #report
+        msg = 'The file "%s" was successfully created.' % filename
+        msg += '\n\nTo edit it in maya, select it in your list and'
+        msg += ' click "Open...".'
+
+        dialogs.infoPrompt(msg)
 
 
     def _openButton(self):
