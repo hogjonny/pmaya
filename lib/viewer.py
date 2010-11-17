@@ -127,6 +127,7 @@ class SideButtons:
         self.delete_button = QtGui.QPushButton('Remove...')
         topbuttons_layout.addWidget(self.delete_button)
 
+        #horizontal divider
         line = QtGui.QFrame()
         topbuttons_layout.addWidget(line)
         line.setFrameShape(QtGui.QFrame.HLine);
@@ -144,6 +145,20 @@ class SideButtons:
         self.refresh_button = QtGui.QPushButton('Refresh List')
         topbuttons_layout.addWidget(self.refresh_button, 0, 
             QtCore.Qt.AlignBottom)
+
+        #by default start with buttons disabled
+        self.disable()
+
+
+    def enable(self):
+        """controller calls this method if the list has something selected"""
+        self.checkin_button.setEnabled(True)
+        self.delete_button.setEnabled(True)
+
+    def disable(self):
+        """controller calls this method if the list has nothing selected"""
+        self.checkin_button.setEnabled(False)
+        self.delete_button.setEnabled(False)
 
 
 class FileList(QtGui.QListWidget):
@@ -348,31 +363,36 @@ class Viewer(QtGui.QWidget):
         self.list = FileList()
         bottom_layout.addLayout(self.list.layout)
 
-        #side buttons
-        side_buttons = SideButtons()
-        bottom_layout.addLayout(side_buttons.layout)
+        self.connect(self.list, 
+            QtCore.SIGNAL('itemSelectionChanged()'), 
+            lambda: controller.event('LIST_SELECTION_CHANGED'))
 
-        self.connect(side_buttons.new_button,
+        #side buttons
+        self.side_buttons = SideButtons()
+        bottom_layout.addLayout(self.side_buttons.layout)
+
+        self.connect(self.side_buttons.new_button,
             QtCore.SIGNAL('clicked()'),
             lambda: controller.event('NEW_BUTTON'))
 
-        self.connect(side_buttons.open_button, 
+        self.connect(self.side_buttons.open_button, 
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('OPEN_BUTTON'))
 
-        self.connect(side_buttons.delete_button, 
+        self.connect(self.side_buttons.delete_button, 
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('DELETE_BUTTON'))
 
-        self.connect(side_buttons.checkin_button, 
+        self.connect(self.side_buttons.checkin_button, 
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('CHECKIN_BUTTON'))
 
-        self.connect(side_buttons.checkout_button, 
+        self.connect(self.side_buttons.checkout_button, 
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('CHECKOUT_BUTTON'))
 
-        self.connect(side_buttons.refresh_button, 
+        self.connect(self.side_buttons.refresh_button, 
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('REFRESH_BUTTON'))
+
 
