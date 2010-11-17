@@ -42,6 +42,8 @@ class Controller:
                     self._checkoutButton()
                 elif event == 'DELETE_BUTTON':
                     self._deleteButton()
+                elif event == 'REFRESH_BUTTON':
+                    self._refreshButton()
                 elif event == 'NEW_FILE_MENU_ITEM':
                     self._newFileMenuItem()
 
@@ -82,7 +84,6 @@ class Controller:
         print 'Full path:', full_path
 
         self.model.createFile(full_path)
-        print os.path.exists(full_path)
         self.refreshGui()
 
         #report
@@ -202,6 +203,11 @@ class Controller:
         dialogs.confirmPrompt(msg)
 
         self.model.remove(src_file)
+        self.refreshGui()
+
+
+    def _refreshButton(self):
+        self.model.refreshFileList()
         self.refreshGui()
 
 

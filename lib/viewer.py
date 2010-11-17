@@ -127,14 +127,23 @@ class SideButtons:
         self.delete_button = QtGui.QPushButton('Remove...')
         topbuttons_layout.addWidget(self.delete_button)
 
-        #checkout button
-        self.checkout_button = QtGui.QPushButton('Get local...')
-        bottombuttons_layout.addWidget(self.checkout_button, 0, 
-            QtCore.Qt.AlignBottom)
+        line = QtGui.QFrame()
+        topbuttons_layout.addWidget(line)
+        line.setFrameShape(QtGui.QFrame.HLine);
+        line.setFrameShadow(QtGui.QFrame.Sunken);
 
         #checkin button
-        self.checkin_button = QtGui.QPushButton('Submit...')
-        bottombuttons_layout.addWidget(self.checkin_button)
+        self.checkin_button = QtGui.QPushButton('Check In...')
+        topbuttons_layout.addWidget(self.checkin_button)
+
+        #checkout button
+        self.checkout_button = QtGui.QPushButton('Check Out...')
+        topbuttons_layout.addWidget(self.checkout_button)
+
+        #refresh button
+        self.refresh_button = QtGui.QPushButton('Refresh List')
+        topbuttons_layout.addWidget(self.refresh_button, 0, 
+            QtCore.Qt.AlignBottom)
 
 
 class FileList(QtGui.QListWidget):
@@ -351,15 +360,19 @@ class Viewer(QtGui.QWidget):
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('OPEN_BUTTON'))
 
-        self.connect(side_buttons.checkout_button, 
+        self.connect(side_buttons.delete_button, 
             QtCore.SIGNAL('clicked()'), 
-            lambda: controller.event('CHECKOUT_BUTTON'))
+            lambda: controller.event('DELETE_BUTTON'))
 
         self.connect(side_buttons.checkin_button, 
             QtCore.SIGNAL('clicked()'), 
             lambda: controller.event('CHECKIN_BUTTON'))
 
-        self.connect(side_buttons.delete_button, 
+        self.connect(side_buttons.checkout_button, 
             QtCore.SIGNAL('clicked()'), 
-            lambda: controller.event('DELETE_BUTTON'))
+            lambda: controller.event('CHECKOUT_BUTTON'))
+
+        self.connect(side_buttons.refresh_button, 
+            QtCore.SIGNAL('clicked()'), 
+            lambda: controller.event('REFRESH_BUTTON'))
 
