@@ -22,6 +22,8 @@ class Controller:
         try:
             if event == 'PROJ_SELECT':
                 self._selectProject()
+            elif event == 'LIST_SELECTION_CHANGED':
+                self._listSelectionChanged()
             elif event == 'ABOUT_MENU_ITEM':
                 self._aboutMenuItem()
             elif event == 'QUIT_MENU_ITEM':
@@ -50,8 +52,6 @@ class Controller:
         except UIAbortException, e:
             pass
 
-        self.refreshGui()
-
 
     def _selectProject(self):
         selected = self.view.proj_selector.getSelected()
@@ -68,6 +68,16 @@ class Controller:
             return
 
         self.model.selectProject(selected)
+        self.refreshGui()
+
+
+    def _listSelectionChanged(self):
+        selected = self.view.list.getSelected()
+
+        if selected:
+            self.view.side_buttons.enable()
+        else:
+            self.view.side_buttons.disable()
 
     
     def _newButton(self):
