@@ -99,11 +99,18 @@ class Controller:
         #get the specified file
         selected_file = self.view.list.getSelected()
 
-        if not selected_file:
-            #nothing selected so do nothing
+        if selected_file:
+            self.model.open(selected_file)
             return
 
-        self.model.open(selected_file)
+        #prompt if they really want to open maya
+        dialogs = Dialogs(self.view)
+
+        msg = 'No file selected!'
+        msg += '\n\nAre you sure you want to open maya without a file?'
+        dialogs.confirmPrompt(msg)
+
+        self.model.open()
 
 
     def _checkoutButton(self):

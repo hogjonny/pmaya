@@ -35,7 +35,7 @@ class Model:
         #load project's configuration file
 
 
-    def open(self, path):
+    def open(self, path=None):
         print 'Opening maya on file: %s' % path
 
         proj = self.project.getProject()
@@ -48,7 +48,14 @@ class Model:
             cmd += 'source %s; ' % (os.path.join(proj, '.cshrc'))
 
         #maya command
-        cmd += 'maya -file %s -proj %s' % (path, proj)
+        cmd += 'maya'
+
+        #maya project
+        cmd += ' -proj %s' % proj
+
+        #file to open
+        if path:
+            cmd += ' -file %s' % path
 
         #check for startup script
         startup_script = self.project.getMelStartupScript()
