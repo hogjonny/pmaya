@@ -24,6 +24,7 @@ class Controller:
                 self._selectProject()
             elif event == 'LIST_SELECTION_CHANGED':
                 self._listSelectionChanged()
+                self._refreshButtons()
             elif event == 'ABOUT_MENU_ITEM':
                 self._aboutMenuItem()
             elif event == 'QUIT_MENU_ITEM':
@@ -328,6 +329,17 @@ class Controller:
 
         #file list
         self.view.list.load(self.model.files)
+
+        self._refreshButtons()
+
+
+    def _refreshButtons(self):
+        if not self.model.project:
+            self.view.side_buttons.setState('NO_PROJ')
+        elif not self.view.list.getSelected():
+            self.view.side_buttons.setState('NO_ITEM')
+        else:
+            self.view.side_buttons.setState('ITEM')
 
 
     def loadProfile(self, path):
