@@ -160,6 +160,32 @@ class SideButtons:
         self.checkin_button.setEnabled(False)
         self.delete_button.setEnabled(False)
 
+    def setState(self, state):
+        print 'STATE SET: %s' % state
+
+        #this is an ugly hack, i know
+        if state == 'NO_PROJ':
+            self.new_button.setEnabled(False) 
+            self.open_button.setEnabled(False) 
+            self.delete_button.setEnabled(False) 
+            self.checkin_button.setEnabled(False) 
+            self.checkout_button.setEnabled(False) 
+            self.refresh_button.setEnabled(False) 
+        elif state == 'NO_ITEM':
+            self.new_button.setEnabled(True) 
+            self.open_button.setEnabled(True) 
+            self.delete_button.setEnabled(False) 
+            self.checkin_button.setEnabled(False) 
+            self.checkout_button.setEnabled(True) 
+            self.refresh_button.setEnabled(True) 
+        else:
+            self.new_button.setEnabled(True) 
+            self.open_button.setEnabled(True) 
+            self.delete_button.setEnabled(True) 
+            self.checkin_button.setEnabled(True) 
+            self.checkout_button.setEnabled(True) 
+            self.refresh_button.setEnabled(True) 
+
 
 class FileList(QtGui.QListWidget):
     def __init__(self):
