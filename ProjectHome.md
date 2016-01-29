@@ -1,0 +1,1 @@
+Pmaya is a graphical tool used for managing and editing files within a Maya pipeline for small productions. Its goals are flexibility between multiple projects, as well as simplicity for end users and artists. It provides basic file management and version control, as well as support for startup scripts and automatic project setting when opening Maya.
